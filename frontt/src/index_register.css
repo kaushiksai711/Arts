@@ -1,0 +1,27 @@
+.container1 {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background:linear-gradient(to right, #f9d423,#ff4e50);
+    border: 5px solid #11151d;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .hidden {
+    display: none;
+  }
+  
+  .visible {
+    display: block;
+  }
+  
+  .toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .toggle-buttons button {
+    width: 48%;
+  }
+  

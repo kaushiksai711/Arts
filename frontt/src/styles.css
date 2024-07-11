@@ -1,0 +1,163 @@
+#body {background:linear-gradient(to right, #ff4e50, #f9d423); }
+
+#about {
+  background-color: hsl(210, 93%, 58%);
+  padding: 20px;
+  text-align: center;
+}
+#navi {
+  background: linear-gradient(to right, #ff4e50, #f9d423); /* Gradient with mix of colors */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+/* Style for the Featured Products section */
+#featured-products {
+  background-color: hsl(180, 20%, 49%);
+  padding: 20px;
+  text-align: center;
+}
+#leftt{float: left;}
+.products-container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space items evenly */
+}
+.card-body{background:url("D:\\pics_web\\backabt.jpg") ;background-size:cover;
+  background-position:center;padding: 20px;
+  
+  border:solid 6px #343a40 }
+.product {
+  flex: 1; /* Equal width for each product */
+  margin-right: 20px; /* Add some space between products */
+}
+#A{background:url("D:\\pics_web\\backabt.jpg") ;background-size:cover;
+  background-position:center;
+padding: 20px;
+margin:30px;
+border:solid 6px #343a40 }
+.product img {
+  height: 400px;
+  width: 100%; /* Make the image fill its container */
+}
+
+.product-info {
+  padding: 10px; /* Add padding around the text content */
+}
+/* Style for the Craft Ideas section */
+#craft-ideas {
+  background: linear-gradient(to right, #4c4cb8, #b84c4c, #4cb84c); 
+  padding: 20px;
+  text-align: center;
+}
+
+.carousel-item img {
+    height: 400 px ;
+    width:100%;
+  }
+  
+  #header{background-color:  #e4868e;}
+
+  .progress {
+    height: 20px;
+  }
+.art-piece {
+    border: 1px solid #2f3faa;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+#cart {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+}
+.navbar img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.cart-button {
+  position: relative;
+}
+.cart-button img {
+  width: 30px;
+  height: 30px;
+}
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12px;
+}
+/* General styles */
+
+.container {
+  margin-top: 20px;
+  
+}
+
+/* Header styles */
+header {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Navbar styles */
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  font-size: 18px;
+}
+
+/* Carousel styles */
+
+
+/* Form styles */
+.form-control {
+  margin-right: 10px;
+}
+
+/* Footer styles */
+footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-links {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.centered-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Set the color of unvisited links to red */
+h2.l2 a {
+  color: black;
+  
+}
+h2.l1 a {
+  color: black;
+}
+
+/* Set the color of links when hovered over to green */
