@@ -1,6 +1,24 @@
 import React from 'react';
+import axios from 'axios';
 
 function Buy() {
+  const handleAddToCart = async (name, price) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Please log in to add items to the cart');
+        return;
+      }
+      const response = await axios.post('http://localhost:5000/api/cart/add', 
+        { productId: name, quantity: 1 }, 
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert('Item added to cart');
+    } catch (error) {
+      console.error('Error adding to cart:', error.response ? error.response.data.message : error.message);
+    }
+  };
+
   return (
     <div>
       <div className="container" id="A">
@@ -30,7 +48,7 @@ function Buy() {
                 </tr>
               </tbody>
             </table>
-            <button className="add-to-cart" data-name="Art Piece snow lep" data-price="1000">Add to Cart</button>
+            <button className="add-to-cart" onClick={() => handleAddToCart('Art Piece snow lep', 1000)}>Add to Cart</button>
           </div>
         </div>
       </div>
@@ -61,7 +79,7 @@ function Buy() {
                 </tr>
               </tbody>
             </table>
-            <button className="add-to-cart" data-name="Art Piece 2" data-price="1000">Add to Cart</button>
+            <button className="add-to-cart" onClick={() => handleAddToCart('Art Piece 2', 1000)}>Add to Cart</button>
           </div>
         </div>
       </div>

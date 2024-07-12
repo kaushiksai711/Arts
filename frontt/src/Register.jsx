@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index_register.css';
+import './index_register.css'
 
-function App() {
-  const [showLogin, setShowLogin] = useState(true);
+function Register() {
+    const [showLogin, setShowLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,16 +13,15 @@ function App() {
     setShowLogin(!showLogin);
     setMessage('');
   };
-
-  const handleSignup = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
-      return;
-    }
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', { email, password });
-      setMessage(response.data.message);
+      const response = await axios.post('http://localhost:5000/api/register', {
+        email,
+        password,
+        confirmPassword,
+      });
+      setMessage('Registration successful, please log in');
     } catch (error) {
       setMessage(error.response.data.message);
     }
@@ -32,17 +30,19 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('http://localhost:5000/api/login', {
+        email,
+        password,
+      });
+      localStorage.setItem('token', response.data.token);
       setMessage('Login successful');
-      // Handle storing token and redirecting user here
     } catch (error) {
       setMessage(error.response.data.message);
     }
   };
 
   return (
-    <div className="Login">
-      <div className="container1">
+    <div className="container1">
         <div className="toggle-buttons">
           <button 
             className={`btn ${showLogin ? 'btn-primary' : 'btn-secondary'}`}
@@ -57,78 +57,76 @@ function App() {
             Signup
           </button>
         </div>
-        <div className={showLogin ? 'visible' : 'hidden'}>
-          <h2>Login</h2>
-          <form onSubmit={handleLogin}>
-            <div className="mb-3">
-              <label htmlFor="loginEmail" className="form-label">Email address</label>
-              <input 
-                type="email" 
-                className="form-control" 
-                id="loginEmail" 
-                required 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="loginPassword" className="form-label">Password</label>
-              <input 
-                type="password" 
-                className="form-control" 
-                id="loginPassword" 
-                required 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">Login</button>
-          </form>
-        </div>
         <div className={showLogin ? 'hidden' : 'visible'} id='signup'>
-
-          <h2>Signup</h2>
-          <form onSubmit={handleSignup}>
-            <div className="mb-3">
-              <label htmlFor="signupEmail" className="form-label">Email address</label>
-              <input 
-                type="email" 
-                className="form-control" 
-                id="signupEmail" 
-                required 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="signupPassword" className="form-label">Password</label>
-              <input 
-                type="password" 
-                className="form-control" 
-                id="signupPassword" 
-                required 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="signupConfirmPassword" className="form-label">Confirm Password</label>
-              <input 
-                type="password" 
-                className="form-control" 
-                id="signupConfirmPassword" 
-                required 
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">Signup</button>
-          </form>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
+        <div className="mb-3">
+          <label htmlFor="signupEmail" className="form-label">Email address</label>
+          <input 
+            type="email" 
+            className="form-control" 
+            id="signupEmail" 
+            required 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-        {message && <div className="alert alert-info mt-3">{message}</div>}
+        <div className="mb-3">
+          <label htmlFor="signupPassword" className="form-label">Password</label>
+          <input 
+            type="password" 
+            className="form-control" 
+            id="signupPassword" 
+            required 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+          <input 
+            type="password" 
+            className="form-control" 
+            id="confirmPassword" 
+            required 
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Register</button>
+      </form>
       </div>
+      <div className={showLogin ? 'visible' : 'hidden'}>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <div className="mb-3">
+          <label htmlFor="loginEmail" className="form-label">Email address</label>
+          <input 
+            type="email" 
+            className="form-control" 
+            id="loginEmail" 
+            required 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="loginPassword" className="form-label">Password</label>
+          <input 
+            type="password" 
+            className="form-control" 
+            id="loginPassword" 
+            required 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Login</button>
+      </form>
+      {message && <div className="alert alert-info mt-3">{message}</div>}
+    </div>
     </div>
   );
 }
 
-export default App;
+export default Register;

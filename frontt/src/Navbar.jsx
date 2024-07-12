@@ -24,12 +24,15 @@ function Navbar() {
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
+                Items
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><Link className="dropdown-item" to="/buy">Buy arts</Link></li>
                 <li><Link className="dropdown-item" to="/sell">Sell Arts</Link></li>
               </ul>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/cart">Cart</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/contact">Contact Us</NavLink>

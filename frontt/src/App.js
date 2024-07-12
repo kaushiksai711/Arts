@@ -11,6 +11,8 @@ import Contact from './Contact';
 import Buy from './Buy';
 import Sell from './Sell';
 import Register from './Register';
+
+import Cart from './Cart';
 import './App.css';
 import './styles.css'
 function App() {
@@ -30,6 +32,8 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/buy" element={<Buy/>} />
               <Route path="/sell" element={<Sell/>} />
+
+              <Route path="/cart" element={<Cart />} />
             </Routes>
           </div>
         </main>
