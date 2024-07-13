@@ -11,7 +11,7 @@ import Contact from './Contact';
 import Buy from './Buy';
 import Sell from './Sell';
 import Register from './Register';
-
+import Payment from './Payment';
 import Cart from './Cart';
 import './App.css';
 import './styles.css'
@@ -33,6 +33,7 @@ function App() {
               <Route path="/buy" element={<Buy/>} />
               <Route path="/sell" element={<Sell/>} />
               
+        <Route path=":userId/payment" element={<Payment />} />
               <Route path="/cart" element={<Cart />} />
             </Routes>
           </div>

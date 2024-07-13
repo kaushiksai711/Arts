@@ -1,5 +1,13 @@
 #body {background:linear-gradient(to right, #ff4e50, #f9d423); }
-
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 #about {
   background-color: hsl(210, 93%, 58%);
   padding: 20px;

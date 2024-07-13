@@ -69,17 +69,19 @@ function Buy() {
               </div>
               <div className="product-actions">
               
-              <button className="btn btn-primary m5" onClick={() => handleAddToCart(product) }>Add to Cart</button>
-              <button onClick={() => toggleViewDetails(product._id)} className="btn btn-primary m5">
-                  {viewedProductId === product._id ? 'Hide Details' : 'View Details'}
-                </button>
-                <input
+              <input
                   type="number"
                   min="1"
                   value={quantities[product._id]}
                   onChange={(e) => handleQuantityChange(product, e.target.value)}
-                  className="form-control"
+                  className="form-control1"
                 />
+                
+              <button className="btn btn-primary m5" onClick={() => handleAddToCart(product) }>Add to Cart</button>
+              <button onClick={() => toggleViewDetails(product._id)} className="btn btn-primary m5">
+                  {viewedProductId === product._id ? 'Hide Details' : 'View Details'}
+                </button>
+                
                 
               </div>
             </div>
