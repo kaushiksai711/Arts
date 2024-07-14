@@ -35,12 +35,13 @@ footer {
 .product {
   flex: 1; /* Equal width for each product */
   margin-right: 20px; /* Add some space between products */
-}
-#A{background:url("D:\\pics_web\\backabt.jpg") ;background-size:cover;
+} 
+  #A{background:url("D:\\pics_web\\backabt.jpg") ;background-size:cover;
   background-position:center;
 padding: 20px;
 margin:30px;
-border:solid 6px #343a40 }
+border:solid 6px #343a40;
+border-radius: 10px }
 .product img {
   height: 400px;
   width: 100%; /* Make the image fill its container */
@@ -130,6 +131,11 @@ header {
 /* Form styles */
 .form-control {
   margin-right: 10px;
+}
+.form-control2 {
+  align-content: center;
+  margin-right: 10px;
+  width: 500px;
 }
 
 /* Footer styles */

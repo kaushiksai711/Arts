@@ -28,6 +28,22 @@ const CartSchema = new mongoose.Schema({
   productId: String,
   quantity: Number,
 });
+const messageSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  message: String,
+  replies: [
+    {
+      name: String,
+      email: String,
+      message: String,
+      timestamp: { type: Date, default: Date.now }
+    }
+  ],
+  timestamp: { type: Date, default: Date.now }
+});
+
+const Message = mongoose.model('Message', messageSchema);
 
 const User = mongoose.model('User', UserSchema);
 const Cart = mongoose.model('Cart', CartSchema);
@@ -57,7 +73,24 @@ app.post('/api/register', async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 });
+app.put('/api/update-user', async (req, res) => {
+  const { email, name } = req.body;
+  console.log(email,name,'update place')
+  try { 
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
 
+    user.name = name;
+    await user.save();
+
+    res.status(200).send({ message: 'User updated successfully' });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
 
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
@@ -78,6 +111,36 @@ app.get('/api/user', async (req, res) => {'probs is here'
   console.log(user)
   res.send({ user });})
 app.use('/api/cart', require('./routes/cart'));
+
+app.post('/api/contact', async (req, res) => {
+  const { name, email, message } = req.body;
+  // Save message to database
+  const newMessage = new Message({ name, email, message });
+  await newMessage.save();
+
+  res.status(200).json({ message: 'Form submitted successfully.' });
+});
+
+app.get('/api/messages', async (req, res) => {
+  const messages = await Message.find({});
+  res.status(200).json(messages);
+});
+app.post('/api/messages/:id/reply', async (req, res) => {
+  const { id } = req.params;
+  const { name, email, message } = req.body;
+
+  const reply = { name, email, message };
+
+  try {
+    const msg = await Message.findById(id);
+    msg.replies.push(reply);
+    await msg.save();
+
+    res.status(200).json({ message: 'Reply added successfully.' });
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred while adding the reply.' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

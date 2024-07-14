@@ -50,7 +50,7 @@ function Navbar() {
               <NavLink className="nav-link" to="/cart">Cart</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/contact">Contact Us</NavLink>
+              <NavLink className="nav-link" to="/contact">Forum</NavLink>
             </li>
           </ul>
           <form className="d-flex">

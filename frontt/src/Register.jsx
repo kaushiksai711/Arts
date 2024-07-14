@@ -43,7 +43,7 @@ function Register() {
       localStorage.setItem('user', JSON.stringify( response.data.user));
       setMessage('Login successful');
       console.log(response)
-      navigate(`/${email}/dashboard`);
+      navigate(`/${response.data.user.email}/dashboard`);
     } catch (error) {
       setMessage(error.response.data.message);
     }
