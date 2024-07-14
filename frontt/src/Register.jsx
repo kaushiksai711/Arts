@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './index_register.css'
 
 function Register() {
     const [showLogin, setShowLogin] = useState(true);
+    
+  const [name, setName] = useState('');
+    
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate=useNavigate()
 
-  const toggleForms = () => {
-    setShowLogin(!showLogin);
-    setMessage('');
-  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/register', {
+        name,
         email,
         password,
         confirmPassword,
       });
+      console.log(response)
       setMessage('Registration successful, please log in');
     } catch (error) {
       setMessage(error.response.data.message);
@@ -35,7 +39,11 @@ function Register() {
         password,
       });
       localStorage.setItem('token', response.data.token);
+      console.log(response.data.user.email)
+      localStorage.setItem('user', JSON.stringify( response.data.user));
       setMessage('Login successful');
+      console.log(response)
+      navigate(`/${email}/dashboard`);
     } catch (error) {
       setMessage(error.response.data.message);
     }
@@ -60,6 +68,17 @@ function Register() {
         <div className={showLogin ? 'hidden' : 'visible'} id='signup'>
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
+      <div className="mb-3">
+          <label htmlFor="signupName" className="form-label">Name</label>
+          <input 
+            type="string" 
+            className="form-control" 
+            id="signupName" 
+            required 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="signupEmail" className="form-label">Email address</label>
           <input 
@@ -123,8 +142,9 @@ function Register() {
         </div>
         <button type="submit" className="btn btn-primary">Login</button>
       </form>
-      {message && <div className="alert alert-info mt-3">{message}</div>}
     </div>
+    
+    {message && <div className="alert alert-info mt-3">{message}</div>}
     </div>
   );
 }

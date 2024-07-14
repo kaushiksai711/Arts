@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/eco', {
 });
 
 const UserSchema = new mongoose.Schema({
+  name:String,
   email: String,
   password: String,
 });
@@ -32,15 +33,31 @@ const User = mongoose.model('User', UserSchema);
 const Cart = mongoose.model('Cart', CartSchema);
 
 app.post('/api/register', async (req, res) => {
-  const { email, password, confirmPassword } = req.body;
+  const { name,email, password, confirmPassword } = req.body;
+  
   if (password !== confirmPassword) {
     return res.status(400).send({ message: 'Passwords do not match' });
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ email, password: hashedPassword });
-  await user.save();
-  res.status(201).send({ message: 'User registered successfully' });
+
+  try {
+    // Check if the email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).send({ message: 'Email already in use' });
+    }
+
+    // Hash the password and save the new user
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name,email, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).send({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Error during user registration:', error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
 });
+
 
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
@@ -53,9 +70,13 @@ app.post('/api/login', async (req, res) => {
     return res.status(400).send({ message: 'Invalid credentials' });
   }
   const token = jwt.sign({ userId: user._id }, 'secretkey', { expiresIn: '1h' });
-  res.send({ token });
+  res.send({ token,user});
 });
-
+app.get('/api/user', async (req, res) => {'probs is here'
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  console.log(user)
+  res.send({ user });})
 app.use('/api/cart', require('./routes/cart'));
 
 app.listen(PORT, () => {
