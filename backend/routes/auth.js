@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
+const Product4=require('../models/Product')
 const router = express.Router();
 
 // Signup
@@ -40,5 +40,18 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' });
   }
 });
+router.post('/products', async (req, res) => {
+  const { title, artist, description, price, image, dimensions, materials, count } = req.body;
+  const newProduct = new Product4({ title, artist, description, price, image, dimensions, materials, count });
+
+  try {
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 
 module.exports = router;
