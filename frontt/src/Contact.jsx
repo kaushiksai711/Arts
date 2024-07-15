@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext,useRef  } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import { UserContext } from './UserContext';
 import { Modal, Button, Form, ProgressBar } from 'react-bootstrap';
@@ -15,19 +15,24 @@ function Contact() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [expandedMessageId, setExpandedMessageId] = useState(null);
 
   const messagesEndRef = useRef(null);
+
   useEffect(() => {
     fetchMessages();
   }, []);
+
   useEffect(() => {
     if (loading) {
       scrollToBottom();
     }
   }, [loading]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
   const fetchMessages = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/messages');
@@ -80,10 +85,17 @@ function Contact() {
     }
   };
 
+  const toggleMessage = (messageId) => {
+    if (expandedMessageId === messageId) {
+      setExpandedMessageId(null);
+    } else {
+      setExpandedMessageId(messageId);
+    }
+  };
+
   return (
     <div className='container' id="A">
       <h2>Forum Messages</h2>
-      
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
@@ -139,52 +151,65 @@ function Contact() {
           <div className="list-group">
             {messages.map((msg) => (
               <div key={msg._id} className="custom-list-item2">
-                <p><b>{msg.name}</b></p>
+                <h6><b>{msg.name}</b>
+                <sub>-{msg.email}</sub></h6>
                 <p>{msg.message}</p>
-                <h5>Replies:</h5>
-                <div className="list-group">
-                  {msg.replies.map((reply, index) => (
-                    <div key={index} className="custom-list-item1">
-                      <p><b>{reply.name}</b></p>
-                      <p>{reply.message}</p>
-                    </div>
-                  ))}
-                </div>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  const reply = {
-                    name: user ? user.name : '',
-                    email: user ? user.email : '',
-                    message: e.target.replyMessage.value
-                  };
-                  handleReply(msg._id, reply);
-                }}>
-                  <Form.Group controlId="formReply">
-                    <Form.Label>Reply:</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      name="replyMessage"
-                      rows="2"
-                      required
-                    />
-                  </Form.Group>
-                  <Button variant="secondary" type="submit" className="mt-2">
-                    Reply
-                  </Button>
-                </form>
+                <Button variant="secondary" onClick={() => toggleMessage(msg._id)}>
+                  {expandedMessageId === msg._id ? 'Hide Replies' : 'View Replies'}
+                </Button>
+                {expandedMessageId === msg._id && (
+                  <>
+                    <h5>Replies:</h5>
+                    {msg.replies.length !==0  ?(
+                    <div className="list-group mt-3 mr-3">
+                      {msg.replies.map((reply, index) => (
+                        <div key={index} className="custom-list-item1">
+                          <h6><b>{reply.name}</b>
+                          <sub>-{reply.email}</sub></h6>
+                          <p>{reply.message}</p>
+                        </div>
+                      ))}
+                    </div>):
+                    <div className="list-group">
+                    No reply yet .Be the first to reply
+                  </div>}
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      const reply = {
+                        name: user ? user.name : '',
+                        email: user ? user.email : '',
+                        message: e.target.replyMessage.value
+                      };
+                      handleReply(msg._id, reply);
+                    }}>
+                      <Form.Group controlId="formReply">
+                        <Form.Label>Reply:</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          name="replyMessage"
+                          rows="2"
+                          required
+                        />
+                      </Form.Group>
+                      <Button variant="secondary" type="submit" className="mt-2">
+                        Reply
+                      </Button>
+                    </form>
+                  </>
+                )}
               </div>
             ))}
           </div>
           <Button className="mt-3" onClick={() => setLoading(!loading)}>
-        {loading ? 'Hide Messages' : 'View Messages'}
-      </Button>
+            {loading ? 'Hide Messages' : 'View Messages'}
+          </Button>
         </div>
       )}
       <Button variant="primary" onClick={() => setShowModal(true)}>
-      Write a Message
-    </Button>
+        Write a Message
+      </Button>
 
-    <div ref={messagesEndRef} />
+      <div ref={messagesEndRef} />
     </div>
   );
 }
