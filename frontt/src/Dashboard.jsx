@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from './UserContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Dashboard() {
   const { user, setUser } = useContext(UserContext);
@@ -19,7 +20,7 @@ function Dashboard() {
           },
           params: {
             username: user.name,
-            email: user.email,
+            Email: user.email,
           },
         });
         setProducts(response.data);
@@ -29,7 +30,7 @@ function Dashboard() {
     };
 
     fetchProducts();
-  }, []);
+  }, [user]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -75,13 +76,14 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <h2>Dashboard</h2>
+    <div className="container" >
+      <h2 style={{textAlign:'center'}}>Dashboard</h2>
       {user ? (
-        <div className='container5' id='A' height='500px'>
+        <div className='container5'>
+          <div className='card1'>
           <h5>Welcome to your dashboard, {user.name}!</h5>
           <h5><b>Email:</b> {user.email}</h5>
-
+          
           {isEditing ? (
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -113,19 +115,32 @@ function Dashboard() {
               Edit Details
             </button>
           )}
-
+          </div>
           <hr />
-          
+          <div className='container5'id='A'>
           <h4>Products You Are Selling:</h4>
-          <ul className="list-group">
+          
+          
+          <div className="row">
             {products.map(product => (
-              <li key={product._id} className="list-group-item d-flex justify-content-between align-items-center">
-                {product.title} - ${product.price}
-                <button className="btn btn-danger" onClick={() => handleRemoveProduct(product._id)}>Remove</button>
-              </li>
+              <div key={product._id} className="col-lg-4 col-md-4 col-sm-12 mb-4">
+                <div className="card" style={{ backgroundColor: 'lightblue' }}>
+                  <img
+                    src={`http://localhost:5000/uploads/${product.image}`}
+                    className="card-img-top"
+                    alt={product.title}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  />
+                  <div className="card-body1"  style={{ borderBottomLeftRadius:'5px',borderBottomRightRadius:'5px'}} >
+                    <h5 className="card-title">{product.title}</h5>
+                    <p className="card-text">Rs.{product.price}</p>
+                    <button className="btn btn-danger" onClick={() => handleRemoveProduct(product._id)}>Remove</button>
+                  </div>
+                </div>
+              </div>
             ))}
-          </ul>
-        </div>
+          </div>
+        </div></div>
       ) : (
         <p>Please log in to see your dashboard details.</p>
       )}

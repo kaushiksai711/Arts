@@ -226,10 +226,9 @@ app.delete('/api/products/:productId', async (req, res) => {
   }
 });
 app.get('/api/products/selling', async (req, res) => {
-  const {username,email} = req.body; // Assuming userId is stored in JWT payload during authentication
-
+  const {Email}=req.query; 
   try {
-    const products = await Product.find({ artist: username ,email:email});
+    const products = await Product.find({email: Email});
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });

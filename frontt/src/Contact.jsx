@@ -98,10 +98,10 @@ function Contact() {
       <h2>Forum Messages</h2>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header className='card1'closeButton>
           <Modal.Title>Message</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='container5' id='A'>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formName">
               <Form.Label>Name:</Form.Label>
@@ -143,11 +143,11 @@ function Contact() {
         </Modal.Body>
       </Modal>
 
-      <Button className="mt-3" onClick={() => setLoading(!loading)}>
+      <Button className=" md-3 mr-3" onClick={() => setLoading(!loading)}>
         {loading ? 'Hide Messages' : 'View Messages'}
       </Button>
       {loading && (
-        <div className="mt-3">
+        <div className="mt-3 md-3 p-3">
           <div className="list-group">
             {messages.map((msg) => (
               <div key={msg._id} className="custom-list-item2">
@@ -200,12 +200,12 @@ function Contact() {
               </div>
             ))}
           </div>
-          <Button className="mt-3" onClick={() => setLoading(!loading)}>
+          <Button className="mt-3 md-3" onClick={() => setLoading(!loading)}>
             {loading ? 'Hide Messages' : 'View Messages'}
           </Button>
         </div>
       )}
-      <Button variant="primary" onClick={() => setShowModal(true)}>
+      <Button className=" m-3 "variant="primary" onClick={() => setShowModal(true)}>
         Write a Message
       </Button>
 

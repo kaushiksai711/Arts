@@ -56,6 +56,13 @@ function Sell() {
         });
 
         if (response.status === 201) {
+          const forumMessage = {
+            name: formData.artist,
+            email: formData.email,
+            message: `New product added: ${formData.title} by ${formData.artist} for Rs.${formData.price}. Check it out!`,
+          };
+
+          await axios.post('http://localhost:5000/api/contact', forumMessage);
           alert('Product added successfully!');
           setFormData({
             title: '',
@@ -77,15 +84,14 @@ function Sell() {
       alert('Form submission canceled.');
     }
   };
-
   return (
     <div>
-      <h4>Fill the details</h4>
-      <div id="data-to-sell" className="card" style={{ margin: 'auto', alignSelf: 'center', width: '1000px', marginBottom: '50px', borderRadius: '10px' }}>
+      <h4 style={{textAlign:'center'}}>Fill the details</h4>
+      <div id="data-to-sell" className="container5" style={{ margin: 'auto', alignSelf: 'center', width: '1000px', marginBottom: '50px', borderRadius: '10px' }}>
         <form id="sell-form" onSubmit={handleSubmit}>
-          <div className="card-body" style={{ backgroundColor: 'antiquewhite' }}>
+          <div className="container5" id="A" style={{ backgroundColor: 'antiquewhite' }}>
             <label htmlFor="title">
-              Title<br />
+              <b>Title</b><br />
               <input
                 type="text"
                 id="title"
@@ -97,7 +103,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Artist">
-              Artist<br />
+              <b>Artist</b><br />
               <input
                 type="text"
                 id="Artist"
@@ -108,7 +114,7 @@ function Sell() {
               />
             </label><br />
             <label htmlFor="Email">
-              Email<br />
+              <b>Email</b><br />
               <input
                 type="email"
                 id="email"
@@ -120,7 +126,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Description">
-              Description<br />
+              <b>Description</b><br />
               <input
                 type="text"
                 id="Description"
@@ -132,7 +138,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Price">
-              Price<br />
+              <b>Price</b><br />
               <input
                 type="number"
                 id="Price"
@@ -144,7 +150,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="art_or_craft">
-              Art
+            <b> Art</b>
               <input
                 type="radio"
                 id="art_or_craft_art"
@@ -153,7 +159,7 @@ function Sell() {
                 checked={formData.type === 'Art'}
                 onChange={handleChange}
               />
-              Craft
+             <b> Craft</b>
               <input
                 type="radio"
                 id="art_or_craft_craft"
@@ -165,7 +171,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Image">
-              Image<br />
+            <b> Image</b><br />
               <input
                 type="file"
                 id="Image"
@@ -177,7 +183,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Dimensions">
-              Dimensions<br />
+            <b> Dimensions</b><br />
               <input
                 type="text"
                 id="Dimensions"
@@ -189,7 +195,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Materials">
-              Materials<br />
+            <b> Materials</b><br />
               <input
                 type="text"
                 id="Materials"
@@ -201,7 +207,7 @@ function Sell() {
             </label><br />
 
             <label htmlFor="Count">
-              Count<br />
+            <b> Count</b><br />
               <input
                 type="number"
                 id="Count"

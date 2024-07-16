@@ -65,12 +65,12 @@ function Cart() {
             <li key={index} className="list-group-item custom-list-item d-flex justify-content-between align-items-center">
               <div className="d-flex align-items-center">
                 <div>
-                  <img src={item.product.image} alt={item.product._Id} style={{ width: '100px', marginRight: '10px' }} />
+                  <img src={`http://localhost:5000/uploads/${item.product.image}`} alt={item.product._Id} style={{ width: '100px',height:'100px', marginRight: '10px' }} />
                 </div>
                 <div>
                   <h5>{item.product.title}</h5>
                   <p>Quantity: {item.quantity}</p>
-                  <p>Price per piece: ${item.product.price}</p>
+                  <p>Price per piece: Rs.{item.product.price}</p>
                 </div>
               </div>
               <button
@@ -87,7 +87,7 @@ function Cart() {
       </ul>
       {cart.length > 0 && (
         <div className="d-flex justify-content-between align-items-center mt-3" id='A'>
-          <h4>Total: ${totalAmount.toFixed(2)}</h4>
+          <h4>Total: Rs. {totalAmount.toFixed(2)}</h4>
           <button
             className="btn btn-success"
             onClick={handlePlaceOrder}
