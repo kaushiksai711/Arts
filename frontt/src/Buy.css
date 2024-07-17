@@ -1,23 +1,24 @@
 .container {
   padding: 20px;
 }
-
+.btn,.form-control1,input{border-radius: 10px;}
 .card {
   border: 2px solid #000;
   border-radius: 10px;
   padding: 20px;
-  background-color: lightblue; 
+  background-image:url("../public/pics_web/wall3.jpg")   ; /*linear-gradient(to bottom ,white,rgb(198, 198, 198));*/
   transition: all 0.3s ease;
 }
 .card1 {
   border: 2px solid #000;
   border-radius: 10px;
   padding: 20px;
-  background-color: lightblue; 
+  background: linear-gradient(to bottom ,white,rgb(198, 198, 198));
   transition: all 0.3s ease;
 }
 
 .card-img-top {
+  border-style:solid;
   border-radius: 10px;
   width: 50%;
   height: auto;

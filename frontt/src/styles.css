@@ -1,4 +1,8 @@
-#body {background:linear-gradient(to right, #ff4e50, #f9d423); }
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+#body {background:linear-gradient(to right, #ff4e50, #f9d423); 
+  
+  font-family: 'Amatic SC', cursive}
 footer {
   background-color: #333;
   color: white;
@@ -9,9 +13,11 @@ footer {
   width: 100%;
 }
 #about {
-  background-color: hsl(210, 93%, 58%);
+  background:linear-gradient(to bottom left,white, #f78385); 
+  border-radius: 10px;
   padding: 20px;
   text-align: center;
+  margin-bottom: 20px;
 }
 #navi {
   background: linear-gradient(to right, #ff4e50, #f9d423); /* Gradient with mix of colors */
@@ -19,9 +25,11 @@ footer {
 }
 /* Style for the Featured Products section */
 #featured-products {
-  background-color: hsl(180, 20%, 49%);
+  background-color: linear-gradient(to right left bottom,#f9d423, orange);
   padding: 20px;
+  border-radius: 10px;
   text-align: center;
+  margin-bottom: 20px;
 }
 #leftt{float: left;}
 .products-container {
@@ -52,7 +60,8 @@ border-radius: 10px }
 }
 /* Style for the Craft Ideas section */
 #craft-ideas {
-  background: linear-gradient(to right, #4c4cb8, #b84c4c, #4cb84c); 
+  background: linear-gradient(to right bottom,white,orange); 
+  border-radius: 10px;
   padding: 20px;
   text-align: center;
 }

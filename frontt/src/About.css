@@ -1,0 +1,113 @@
+.container {
+    padding: 20px;
+  }
+  
+  h2 {
+    font-family: 'Caveat', cursive; /* Artistic and friendly font */
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .feature-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33% - 20px);
+    box-sizing: border-box;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .feature-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #ff6347; /* Tomato color to make the icons stand out */
+  }
+  
+  .feature-card h3 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .feature-card p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .contact-section {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .contact-card {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .contact-icon {
+    font-size: 40px;
+    margin-right: 10px;
+    color: #ff6347; /* Tomato color to match the feature icons */
+  }
+  
+  .contact-card h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .contact-card p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  @media (max-width: 768px) {
+    .feature-card {
+      width: calc(50% - 20px);
+    }
+  
+    .contact-section {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .feature-card {
+      width: 100%;
+    }
+  
+    .contact-card {
+      width: 100%;
+    }
+  }
+  

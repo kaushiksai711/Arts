@@ -11,18 +11,27 @@ function Carousel() {
         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
       </ol>
       <div className="carousel-inner">
-        <div className="carousel-item active">
+        <div className="carousel-item ">
           <img className="d-block w-100" src="https://img.freepik.com/free-photo/abstract-nature-illustration-tree-backdrop-watercolor-painted-image-generated-by-ai_188544-15564.jpg" alt="First slide" />
         </div>
         <div className="carousel-item">
           <img className="d-block w-100" src='/pics_web/treee.jpg' alt="Second slide" />
         </div>
-        <div className="carousel-item">
-        <video className="d-block w-100" autoPlay loop >
-            <source src='/IMG_6173.mp4' type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        <div className="carousel-item active">
+  <div className="video-container">
+    
+    <video muted autoPlay style={{ width: '500px', height: '700px' }}>
+      <source src="/pics_web/leopard video.mp4" type="video/mp4" />
+    </video>
+    <div className="quote-container">
+      <blockquote>
+        "In every walk with nature one receives far more than he seeks."
+        <cite>John Muir</cite>
+      </blockquote>
+    </div>
+  </div>
+</div>
+        
       </div>
       <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
