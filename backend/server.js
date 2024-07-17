@@ -2,11 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const paymentRoutes = require('./routes/payment');
+
+// Use routes
 const multer = require('multer');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs'); 
 const authenticate = require('./middleware/authenticate');
 
 const app = express();
@@ -15,6 +18,8 @@ const PORT = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+
+app.use('/api/payment', paymentRoutes);
 
 mongoose.connect('mongodb://localhost:27017/eco', {
   useNewUrlParser: true,

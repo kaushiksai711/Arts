@@ -1,69 +1,67 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function Payment() {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const total = queryParams.get('total');
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const totalAmount = queryParams.get('total');
+    const orderId = queryParams.get('orderId');
+    const email = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).email : '';
+    const [message, setMessage] = useState('');
+    const [paymentCompleted, setPaymentCompleted] = useState(false);
 
-  const handlePayment = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/payment', {
-        amount: total,
-        currency: 'INR',
-        receipt: 'order_rcptid_11'
-      });
+    const handlePay = async () => {
+        try {
+            const response = await axios.put(`http://localhost:5000/api/payment/${orderId}`);
 
-      const { order } = response.data;
-
-      const options = {
-        key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your Razorpay key id
-        amount: order.amount,
-        currency: order.currency,
-        name: 'Your Company Name',
-        description: 'Test Transaction',
-        order_id: order.id,
-        handler: async (response) => {
-          try {
-            const result = await axios.post('http://localhost:5000/api/payment/verify', response);
-            console.log(result.data);
-            alert('Payment successful!');
-          } catch (error) {
-            console.error('Payment verification failed:', error);
-            alert('Payment verification failed');
-          }
-        },
-        prefill: {
-          name: 'Your Name',
-          email: 'your-email@example.com',
-          contact: '9999999999'
-        },
-        notes: {
-          address: 'Your Address'
-        },
-        theme: {
-          color: '#F37254'
+            if (response.status === 200) {
+                setMessage('Order has been successfully placed and paid.');
+                setPaymentCompleted(true);
+                // You can perform additional actions here after successful payment
+            } else {
+                setMessage('Error placing order');
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+            setMessage('Error placing order');
         }
-      };
+    };
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.log('Error during payment: as backend is not implemented ');
-      alert('Not Initialized');
-    }
-  };
-
-  return (
-    <div className="container mt-5" id='A'>
-      <h2>Payment Gateway</h2>
-      <p>Total Amount: ${total}</p>
-      <button onClick={handlePayment} className="btn btn-primary mt-3">
-        Pay with UPI
-      </button>
-    </div>
-  );
+    return (
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card shadow-sm">
+                        <div className="card-body">
+                            <h2 className="mb-4">Payment Summary</h2>
+                            <p>Total Amount: Rs. {totalAmount}</p>
+                            {!paymentCompleted && (
+                                <button className="btn btn-primary mt-3" onClick={handlePay}>
+                                    Pay Now
+                                </button>
+                            )}
+                            {message && <div className="alert alert-info mt-3">{message}</div>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {paymentCompleted && (
+                <div className="row mt-3">
+                    <div className="col-md-6">
+                        <div className="card1">
+                            <p>Thank you for your purchase!</p>
+                            <p>Your order will be visible in the dashboard.</p>
+                        
+                        <button className="btn btn-primary" onClick={() => window.location.href = `/${email}/dashboard`}>
+                            Go to Dashboard
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Payment;

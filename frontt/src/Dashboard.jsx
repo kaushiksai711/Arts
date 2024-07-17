@@ -9,6 +9,7 @@ function Dashboard() {
   const [email] = useState(user ? user.email : ''); // Email should not be editable
   const [isEditing, setIsEditing] = useState(false);
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   // Fetch products being sold by the user
   useEffect(() => {
@@ -30,6 +31,28 @@ function Dashboard() {
     };
 
     fetchProducts();
+  }, [user]);
+
+  // Fetch orders with paid: 'Yes' for the user
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/payment', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          params: {
+            userId: user._id,
+            paid: 'Yes',
+          },
+        });
+        setOrders(response.data);
+      } catch (error) {
+        console.error('Error fetching orders:', error.response ? error.response.data.message : error.message);
+      }
+    };
+
+    fetchOrders();
   }, [user]);
 
   const handleNameChange = (e) => {
@@ -76,71 +99,92 @@ function Dashboard() {
   };
 
   return (
-    <div className="container" >
-      <h2 style={{textAlign:'center'}}>Dashboard</h2>
+    <div className="container">
+      <h2 style={{ textAlign: 'center' }}>Dashboard</h2>
       {user ? (
         <div className='container5'>
           <div className='card1'>
-          <h5>Welcome to your dashboard, {user.name}!</h5>
-          <h5><b>Email:</b> {user.email}</h5>
-          
-          {isEditing ? (
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Edit Name:</label>
-                <input
-                  type="text"
-                  id="name"
-                  value={name}
-                  onChange={handleNameChange}
-                  className="form-control"
-                  required
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">Update Name</button>
+            <h5>Welcome to your dashboard, {user.name}!</h5>
+            <h5><b>Email:</b> {user.email}</h5>
+
+            {isEditing ? (
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name">Edit Name:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={handleNameChange}
+                    className="form-control"
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">Update Name</button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setIsEditing(false)}
+                  style={{ marginLeft: '10px' }}
+                >
+                  Cancel
+                </button>
+              </form>
+            ) : (
               <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setIsEditing(false)}
-                style={{ marginLeft: '10px' }}
+                className="btn btn-primary"
+                onClick={() => setIsEditing(true)}
               >
-                Cancel
+                Edit Details
               </button>
-            </form>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit Details
-            </button>
-          )}
+            )}
           </div>
           <hr />
-          <div className='container5'id='A'>
-          <h4>Products You Are Selling:</h4>
-          
-          
-          <div className="row">
-            {products.map(product => (
-              <div key={product._id} className="col-lg-4 col-md-4 col-sm-12 mb-4">
-                <div className="card" style={{ backgroundColor: 'lightblue' }}>
-                  <img
-                    src={`http://localhost:5000/uploads/${product.image}`}
-                    className="card-img-top"
-                    alt={product.title}
-                    style={{ height: '200px', objectFit: 'cover' }}
-                  />
-                  <div className="card-body1"  style={{ borderBottomLeftRadius:'5px',borderBottomRightRadius:'5px'}} >
-                    <h5 className="card-title">{product.title}</h5>
-                    <p className="card-text">Rs.{product.price}</p>
-                    <button className="btn btn-danger" onClick={() => handleRemoveProduct(product._id)}>Remove</button>
+          <div className='container5' id='A'>
+            <h4>Products You Are Selling:</h4>
+            <div className="row">
+              {products.map(product => (
+                <div key={product._id} className="col-lg-4 col-md-4 col-sm-12 mb-4">
+                  <div className="card" style={{ backgroundColor: 'lightblue' }}>
+                    <img
+                      src={`http://localhost:5000/uploads/${product.image}`}
+                      className="card-img-top"
+                      alt={product.title}
+                      style={{ height: '200px', objectFit: 'cover' }}
+                    />
+                    <div className="card-body1" style={{ borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }}>
+                      <h5 className="card-title">{product.title}</h5>
+                      <p className="card-text">Rs.{product.price}</p>
+                      <button className="btn btn-danger" onClick={() => handleRemoveProduct(product._id)}>Remove</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div></div>
+          <hr />
+          <div className='container5' id='B'>
+            <h4>Your Paid Orders:</h4>
+            <div className="row">
+              {orders.length > 0 ? (
+                orders.map(order => (
+                  <div key={order._id} className="col-lg-4 col-md-4 col-sm-12 mb-4">
+                    <div className="card" style={{ backgroundColor: 'lightgreen' }}>
+                      <div className="card-body1">
+                        <h5 className="card-title">Order ID: {order._id}</h5>
+                        <p className="card-text">Total Amount: Rs.{order.totalAmount}</p>
+                        <p className="card-text">Address: {order.address.street}, {order.address.city}, {order.address.state}, {order.address.zip}, {order.address.country}</p>
+                        <p className="card-text">Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No paid orders found.</p>
+              )}
+            </div>
+          </div>
+        </div>
       ) : (
         <p>Please log in to see your dashboard details.</p>
       )}
