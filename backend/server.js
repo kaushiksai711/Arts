@@ -5,6 +5,12 @@ const dotenv = require('dotenv');
 
 // Load environment variables from .env file
 dotenv.config();
+const corsOptions = {
+  origin: 'https://rococo-valkyrie-618624.netlify.app/',
+  methods: ['GET', 'POST','PUT','DELETE'],
+  allowedHeaders: ['Content-Type'],
+};
+
 
 const paymentRoutes = require('./routes/Payment');
 const multer = require('multer');
@@ -21,6 +27,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
+app.use(cors(corsOptions));
 app.use('/api/payment', paymentRoutes);
 
 mongoose.connect(process.env.MONGODB_URI, {
