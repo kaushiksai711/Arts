@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Sell.css';
 
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Sell() {
   const [formData, setFormData] = useState({
     title: '',
@@ -49,7 +50,7 @@ function Sell() {
       data.append('count', formData.count);
 
       try {
-        const response = await axios.post('http://localhost:5000/api/products', data, {
+        const response = await axios.post(`${apiUrl}/api/products`, data, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -62,7 +63,7 @@ function Sell() {
             message: `New product added: ${formData.title} by ${formData.artist} for Rs.${formData.price}. Check it out!`,
           };
 
-          await axios.post('http://localhost:5000/api/contact', forumMessage);
+          await axios.post(`${apiUrl}/api/contact`, forumMessage);
           alert('Product added successfully!');
           setFormData({
             title: '',

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Cart() {
     const [cart, setCart] = useState([]);
     const [message, setMessage] = useState('');
@@ -23,7 +24,7 @@ function Cart() {
                     setMessage('Please log in to view your cart');
                     return;
                 }
-                const response = await axios.get('http://localhost:5000/api/cart', {
+                const response = await axios.get(`${apiUrl}/api/cart`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setCart(response.data);
@@ -43,7 +44,7 @@ function Cart() {
                 setMessage('Please log in to remove items from the cart');
                 return;
             }
-            await axios.delete(`http://localhost:5000/api/cart/remove/${id}`, {
+            await axios.delete(`${apiUrl}/api/cart/remove/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setCart(cart.filter(item => item._id !== id));
@@ -70,7 +71,7 @@ function Cart() {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/payment', orderDetails, {
+            const response = await axios.post(`${apiUrl}/api/payment`, orderDetails, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             if (response.status === 201) {
@@ -98,7 +99,7 @@ function Cart() {
                         <li key={index} className="list-group-item custom-list-item d-flex justify-content-between align-items-center">
                             <div className="d-flex align-items-center">
                                 <div>
-                                    <img src={`http://localhost:5000/uploads/${item.product.image}`} alt={item.product._id} style={{ width: '100px', height: '100px', marginRight: '10px' }} />
+                                    <img src={`${apiUrl}/uploads/${item.product.image}`} alt={item.product._id} style={{ width: '100px', height: '100px', marginRight: '10px' }} />
                                 </div>
                                 <div>
                                     <h5>{item.product.title}</h5>

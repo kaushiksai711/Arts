@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Buy.css';
-
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Buy() {
   const [products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -10,7 +10,7 @@ function Buy() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get(`${apiUrl}/api/products`);
         setProducts(response.data); // Assuming your API response is an array of products
         initializeQuantities(response.data);
       } catch (error) {
@@ -47,7 +47,7 @@ function Buy() {
 
       const quantity = quantities[product._id];
       await axios.post(
-        'http://localhost:5000/api/cart/add',
+      `${apiUrl}/api/cart/add`,
         { product, quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -70,7 +70,7 @@ function Buy() {
             {viewedProductId !== product._id && (
               <div className="card h-100 product-card">
                 <img
-                  src={`http://localhost:5000/uploads/${product.image}`}
+                  src={`${apiUrl}/uploads/${product.image}`}
                   className="card-img-top product-image"
                   style={{height:'200px'}}
                   alt={product.title}
@@ -104,7 +104,7 @@ function Buy() {
                 <div className="row">
                   <div className="col-lg-6">
                     <img
-                      src={`http://localhost:5000/uploads/${product.image}`}
+                      src={`${apiUrl}/uploads/${product.image}`}
                       style={{ width: '720px', border: 'solid 5px', borderRadius: '5px' }}
                       className="img-fluid img-rounded"
                       alt={product.title}

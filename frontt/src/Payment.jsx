@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation,useNavigate} from 'react-router-dom';
 
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Payment() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -13,7 +14,7 @@ function Payment() {
     const navigate=useNavigate()
     const handlePay = async () => {
         try {
-            const response = await axios.put(`http://localhost:5000/api/payment/${orderId}`);
+            const response = await axios.put(`${apiUrl}/api/payment/${orderId}`);
 
             if (response.status === 200) {
                 setMessage('Order has been successfully placed and paid.');

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './index_register.css'
 
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Register() {
     const [showLogin, setShowLogin] = useState(true);
     
@@ -18,7 +19,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/register', {
+      const response = await axios.post(`${apiUrl}/api/register`, {
         name,
         email,
         password,
@@ -34,7 +35,7 @@ function Register() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post(`${apiUrl}/api/login`, {
         email,
         password,
       });

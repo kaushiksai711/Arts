@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UserContext } from './UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Dashboard() {
   const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState(user ? user.name : '');
@@ -15,7 +16,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products/selling', {
+        const response = await axios.get(`${apiUrl}/api/products/selling`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -37,7 +38,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/payment', {
+        const response = await axios.get(`${apiUrl}/api/payment`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -62,7 +63,7 @@ function Dashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put('http://localhost:5000/api/update-user', { email, name });
+      const response = await axios.put(`${apiUrl}/api/update-user`, { email, name });
       if (response.status === 200) {
         const updatedUser = { ...user, name };
         setUser(updatedUser);
@@ -80,7 +81,7 @@ function Dashboard() {
 
   const handleRemoveProduct = async (productId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/products/${productId}`, {
+      const response = await axios.delete(`${apiUrl}/api/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -147,7 +148,7 @@ function Dashboard() {
                 <div key={product._id} className="col-lg-4 col-md-4 col-sm-12 mb-4">
                   <div className="card" style={{ backgroundColor: 'lightblue' }}>
                     <img
-                      src={`http://localhost:5000/uploads/${product.image}`}
+                      src={`${apiUrl}/uploads/${product.image}`}
                       className="card-img-top"
                       alt={product.title}
                       style={{ height: '200px', objectFit: 'cover' }}

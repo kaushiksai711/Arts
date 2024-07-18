@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UserContext } from './UserContext';
 import { Modal, Button, Form, ProgressBar } from 'react-bootstrap';
 
+const apiUrl="https://arts-github-io-2.onrender.com"
 function Contact() {
   const [progress, setProgress] = useState(0);
   const { user } = useContext(UserContext);
@@ -35,7 +36,7 @@ function Contact() {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/messages');
+      const response = await axios.get(`${apiUrl}/api/messages`);
       setMessages(response.data);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -58,7 +59,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/contact', formData);
+      const response = await axios.post(`${apiUrl}/api/contact`, formData);
       if (response.status === 200) {
         setResponseMessage(response.data.message);
         setProgress(100);
@@ -76,7 +77,7 @@ function Contact() {
 
   const handleReply = async (messageId, reply) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/messages/${messageId}/reply`, reply);
+      const response = await axios.post(`${apiUrl}/api/messages/${messageId}/reply`, reply);
       if (response.status === 200) {
         fetchMessages(); // Fetch messages again to include the new reply
       }
