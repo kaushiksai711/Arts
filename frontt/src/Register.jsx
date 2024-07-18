@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './index_register.css'
 
-const apiUrl="https://arts-github-io-2.onrender.com"
+const apiUrl="http://localhost:5000"
 function Register() {
     const [showLogin, setShowLogin] = useState(true);
     

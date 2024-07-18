@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation,useNavigate} from 'react-router-dom';
 
-const apiUrl="https://arts-github-io-2.onrender.com"
+const apiUrl="http://localhost:5000"
 function Payment() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);

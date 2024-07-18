@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Sell.css';
 
-const apiUrl="https://arts-github-io-2.onrender.com"
+const apiUrl="http://localhost:5000"
 function Sell() {
   const [formData, setFormData] = useState({
     title: '',

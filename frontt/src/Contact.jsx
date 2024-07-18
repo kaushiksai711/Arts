@@ -3,7 +3,7 @@ import axios from 'axios';
 import { UserContext } from './UserContext';
 import { Modal, Button, Form, ProgressBar } from 'react-bootstrap';
 
-const apiUrl="https://arts-github-io-2.onrender.com"
+const apiUrl="http://localhost:5000"
 function Contact() {
   const [progress, setProgress] = useState(0);
   const { user } = useContext(UserContext);

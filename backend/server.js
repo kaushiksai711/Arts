@@ -13,7 +13,7 @@ const corsOptions = {
 
 
 const paymentRoutes = require('./routes/Payment');
-const multer = require('multer');
+const multer = require('multer'); 
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
@@ -23,14 +23,14 @@ const authenticate = require('./middleware/authenticate');
 const app = express();
 const PORT = process.env.PORT || 5000;
 console.log(process.env.JWT_SECRET)
-app.use(cors());
+app.use(cors('*'));
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.use(cors(corsOptions));
+console.log('MONGODB_URI:',`${process.env.MONGODB_URI}`); 
 app.use('/api/payment', paymentRoutes);
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(`${process.env.MONGODB_URI}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

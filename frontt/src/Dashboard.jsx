@@ -3,7 +3,7 @@ import axios from 'axios';
 import { UserContext } from './UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const apiUrl="https://arts-github-io-2.onrender.com"
+const apiUrl="http://localhost:5000"
 function Dashboard() {
   const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState(user ? user.name : '');
