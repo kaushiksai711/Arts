@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 // Load environment variables from .env file
 dotenv.config();
 
-const paymentRoutes = require('./routes/payment');
+const paymentRoutes = require('./routes/Payment');
 const multer = require('multer');
 const path = require('path');
 const bodyParser = require('body-parser');
