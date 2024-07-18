@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate} from 'react-router-dom';
 
 function Payment() {
     const location = useLocation();
@@ -10,7 +10,7 @@ function Payment() {
     const email = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).email : '';
     const [message, setMessage] = useState('');
     const [paymentCompleted, setPaymentCompleted] = useState(false);
-
+    const navigate=useNavigate()
     const handlePay = async () => {
         try {
             const response = await axios.put(`http://localhost:5000/api/payment/${orderId}`);
@@ -53,7 +53,8 @@ function Payment() {
                             <p>Thank you for your purchase!</p>
                             <p>Your order will be visible in the dashboard.</p>
                         
-                        <button className="btn btn-primary" onClick={() => window.location.href = `/${email}/dashboard`}>
+                        <button className="btn btn-primary" onClick={() =>  
+    navigate(`/${email}/dashboard`)}>
                             Go to Dashboard
                         </button>
                         </div>
