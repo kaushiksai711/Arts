@@ -19,7 +19,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
 const authenticate = require('./middleware/authenticate');
-
+const MONGODB_URI=process.env.MONGODB_URI
 const app = express();
 const PORT = process.env.PORT || 5000;
 console.log(process.env.JWT_SECRET)
@@ -27,7 +27,7 @@ app.use(cors('*'));
 app.use(bodyParser.json());
 app.use(express.json());
 
-console.log('MONGODB_URI:',`${process.env.MONGODB_URI}`); 
+console.log('MONGODB_URI:',`${MONGODB_URI}`); 
 app.use('/api/payment', paymentRoutes);
 
 mongoose.connect(`${process.env.MONGODB_URI}`, {
