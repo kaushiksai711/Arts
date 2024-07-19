@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Sell.css';
 
-const apiUrl="http://localhost:5000"
+const apiUrl= "https://arts-github-io-2.onrender.com"
 function Sell() {
   const [formData, setFormData] = useState({
     title: '',
@@ -88,7 +88,7 @@ function Sell() {
   return (
     <div>
       <h4 style={{textAlign:'center'}}>Fill the details</h4>
-      <div id="data-to-sell" className="container5" style={{ margin: 'auto', alignSelf: 'center', width: '1000px', marginBottom: '50px', borderRadius: '10px' }}>
+      <div id="data-to-sell" className="container5" style={{ margin: 'auto', alignSelf: 'center', marginBottom: '50px', borderRadius: '10px' }}>
         <form id="sell-form" onSubmit={handleSubmit}>
           <div className="container5" id="A" style={{ backgroundColor: 'antiquewhite' }}>
             <label htmlFor="title">

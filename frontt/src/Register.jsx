@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './index_register.css'
 
-const apiUrl="http://localhost:5000"
+import { UserContext } from './UserContext';
+
+const apiUrl= "https://arts-github-io-2.onrender.com"
+console.log(apiUrl,'dam') 
 function Register() {
     const [showLogin, setShowLogin] = useState(true);
     
@@ -14,6 +17,8 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate=useNavigate()
+
+  const { setUser } = useContext(UserContext);
 
 
   const handleRegister = async (e) => {
@@ -42,6 +47,7 @@ function Register() {
       localStorage.setItem('token', response.data.token);
       console.log(response.data.user.email)
       localStorage.setItem('user', JSON.stringify( response.data.user));
+      setUser(response.data.user);
       setMessage('Login successful');
       console.log(response)
       navigate(`/${response.data.user.email}/dashboard`);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Buy.css';
-const apiUrl= "http://localhost:5000"
+const apiUrl= "https://arts-github-io-2.onrender.com"
 function Buy() {
   const [products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});

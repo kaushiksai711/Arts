@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
-const apiUrl="http://localhost:5000"
+
+const apiUrl= "https://arts-github-io-2.onrender.com"
 function Cart() {
     const [cart, setCart] = useState([]);
     const [message, setMessage] = useState('');

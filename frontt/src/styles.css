@@ -46,8 +46,8 @@ footer {
 } 
   #A{background:url("D:\\pics_web\\backabt.jpg") ;background-size:cover;
   background-position:center;
+  width: 'fit-content';
 padding: 20px;
-margin:30px;
 border:solid 6px #343a40;
 border-radius: 10px }
 .product img {

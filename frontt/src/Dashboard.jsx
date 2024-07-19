@@ -2,8 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from './UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const apiUrl="http://localhost:5000"
+const apiUrl= "https://arts-github-io-2.onrender.com"
 function Dashboard() {
   const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState(user ? user.name : '');
